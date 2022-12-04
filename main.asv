@@ -37,14 +37,14 @@ Q = [H'*H, -H'*y;
 % cvx_end
 
 cvx_begin SDP
-variable X(m,n) symmetric
-minimize(trace(Q*X))
-
-subject to
-for i = 1:n
-    X(i,i) == 1;
-end
-X>=0;
+    variable X(m,n) symmetric
+    minimize(trace(Q*X))
+    
+    subject to
+    for i = 1:n
+        X(i,i) == 1;
+    end
+    X>=0;
 cvx_end
 
 %% calculate original x
@@ -56,9 +56,11 @@ Vs = V(:,ind);
 
 % generate original x
 x_float = sqrt(Ds(1))*Vs(:,1);
-x = (x_float>0)+(x_float<=0)
+x_predict = (x_float>0)+(-1)*(x_float<=0)
 
-
+resi_x = norm(x_float - x_predict)^2
+resi_obj = x_predict'*Q*x_predict
+resi_sc = norm(x_predict)
 %%
 
 
