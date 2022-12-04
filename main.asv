@@ -56,8 +56,8 @@ Vs = V(:,ind);
 
 % generate original x
 x_float = sqrt(Ds(1))*Vs(:,1);
-x = (x_float>0)+(-1)*(x_float<=0)
-resi = norm(x_float - x)
+x = (x_float>0)+(x_float<=0)
+
 
 %%
 
